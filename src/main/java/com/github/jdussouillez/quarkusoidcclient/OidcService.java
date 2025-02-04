@@ -32,7 +32,7 @@ public class OidcService {
     protected volatile Map<String, Tokens> tokens = new ConcurrentHashMap<>(OIDC_IDS.size());
 
     public Uni<String> getFooAccessToken() {
-        return updateToken(FOO_ID).map(Tokens::getAccessToken);
+        return getOrUpdateToken(FOO_ID).map(Tokens::getAccessToken);
     }
 
     @PostConstruct
@@ -41,7 +41,7 @@ public class OidcService {
             .collect(Collectors.toUnmodifiableMap(Function.identity(), oidcClients::getClient));
     }
 
-    private Uni<Tokens> updateToken(final String clientId) {
+    private Uni<Tokens> getOrUpdateToken(final String clientId) {
         var client = clients.get(clientId);
         if (client == null) {
             throw new NoSuchElementException("Client " + clientId + " doesn't exist");
