@@ -13,7 +13,7 @@ public class TestService {
     protected OidcTokenProvider oidcTokenProvider;
 
     public Multi<String> fetch() {
-        return oidcTokenProvider.getFooToken()
+        return oidcTokenProvider.getFooBarToken()
             .onItem()
             .transformToMulti(token -> {
                 Loggers.MAIN.info("Token: {}", token);

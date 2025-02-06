@@ -1,6 +1,5 @@
 package com.github.jdussouillez.testapp.oidc;
 
-import com.github.jdussouillez.testapp.Loggers;
 import io.quarkus.oidc.client.OidcClient;
 import io.quarkus.oidc.client.OidcClients;
 import io.quarkus.oidc.client.Tokens;
@@ -18,10 +17,10 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class OidcTokenProvider {
 
-    private static final String FOO_OIDC_ID = "foo";
+    private static final String FOO_BAR_ID = "foo-bar";
 
     private static final List<String> OIDC_IDS = List.of(
-        FOO_OIDC_ID
+        FOO_BAR_ID
     );
 
     @Inject
@@ -38,8 +37,8 @@ public class OidcTokenProvider {
             .collect(Collectors.toUnmodifiableMap(Function.identity(), oidcClients::getClient));
     }
 
-    public Uni<String> getFooToken() {
-        return updateToken(FOO_OIDC_ID)
+    public Uni<String> getFooBarToken() {
+        return updateToken(FOO_BAR_ID)
             .map(Tokens::getAccessToken);
     }
 
